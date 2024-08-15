@@ -3,6 +3,7 @@ body {
     background-image: linear-gradient(#013369, #013369, #0152aa);
     /* background-image: repeating-linear-gradient(#0152aa, #00428d, #013369) ; */
     color: white;
+    font-family: archivo;
 }
 
 #time-and-score-display {
@@ -20,6 +21,7 @@ body {
     font-size: 2.5rem;
     margin-top: 0%;
     letter-spacing: 0.09em;
+    font-family: jaro;
 }
 
 #time-heading {
