@@ -12,6 +12,7 @@
 </head>
 
 <body>
+
     <div id="time-and-score-display">
         <h1 id="game-title">NFL Trivia Game</h1>
         <h2 id="time-heading"><i class="fa-regular fa-clock"></i>  Time left for <span>15</span> more play<span>s</span></h2>
@@ -39,6 +40,22 @@
             </div>
         </div>
     </section>
+
+       <!-- start game Modal -->
+<div id="startGame" class="modal">
+
+    <div class="modal-content">
+      <h1>Welcome to NFL Trivia game!</h1>
+      <p>Answer the questions below to advance across the field. Starting from your own end zone, you have 4 downs (attempts) to move the ball 10 yards down the field. Every correct answer earns you 10 yards and 4 more downs (attempts) to get the next 10 yards.
+        <br>
+        <br>
+        To win the game, move the ball 100 yards into the opponents end zone by answering 10 questions correctly, but be aware, there's only enough time for 15 plays (questions)!
+        <br>
+        <br>
+        If you fail 4 questions in a row, the ball is turned over to the other team and it's gameover!</p>
+        <button id="play-button" class="start">Play Now!</button>
+    </div>
+
 
     <script src="https://kit.fontawesome.com/cac11ebd95.js" crossorigin="anonymous"></script>
     <script src="assets/js/script.js"></script>
