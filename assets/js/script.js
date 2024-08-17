@@ -1,12 +1,17 @@
-// To get the start game modal
-var modal = document.getElementById("startGame");
+// // To get the start game modal
+// var modal = document.getElementById("startGame");
 
-var start = document.getElementsByClassName("start")[0];
+// var start = document.getElementsByClassName("start")[0];
+// var end = document.getElementById("endGame");
 
-// When the user clicks play now, close the modal
-start.onclick = function() {
-  modal.style.display = "none";
-}
+// // When the user clicks play now/again, close the modal
+// start.onclick = function() {
+//   modal.style.display = "none";
+//   end.style.display ="none";
+// }
+
+// end game modal, score 
+
 
 
 // questions for the quiz
@@ -131,28 +136,82 @@ const quizData = [
     c: "Bill Walsh",
     d: "Andy Reid",
     correct: "b",
-  },
+  }
 ]
 
 const quiz = document.getElementById("quiz-area")
-const answerElement = document.querySelectorAll(".answer")
+const choices = document.querySelectorAll(".answer-text")
 const questionElement = document.getElementById("question")
 const aText = document.getElementById("answer-a")
 const bText = document.getElementById("answer-b")
 const cText = document.getElementById("answer-c")
 const dText = document.getElementById("answer-d")
+const scorePoints = 10
+const minQuestions = 1
 
 let currentQuiz = 0
 let score = 0
+let questionCounter = 15
 
 
 loadQuiz()
 
+// function loadQuiz() {
+  // const currentQuizData = quizData[currentQuiz]
+  // questionElement.innerText = currentQuizData.question
+  // aText.innerText = currentQuizData.a
+  // bText.innerText = currentQuizData.b
+  // cText.innerText = currentQuizData.c
+  // dText.innerText = currentQuizData.d
+// }
+
 function loadQuiz() {
-  const currentQuizData = quizData[currentQuiz]
-  questionElement.innerText = currentQuizData.question
-  aText.innerText = currentQuizData.a
-  bText.innerText = currentQuizData.b
-  cText.innerText = currentQuizData.c
-  dText.innerText = currentQuizData.d
+  questionCounter = 15
+  score = 0
+  var availableQuestions = [...quizData]
+  getNewQuestion()
 }
+
+function getNewQuestion() {
+  if (availableQuestions.length === 0 || questionCounter < minQuestions) {
+    document.endGame.style.display = block
+  }
+
+  questionCounter--
+  const questionsIndex = Math.floor(Math.random()* availableQuestions.length)
+  currentQuestion = availableQuestions[questionsIndex]
+  questionElement.innerText = currentQuestion.question
+
+  choices.forEach(choice => {
+    const number = choice.dataset["number"]
+    choice.innerText = currentQuestion["choice" + number]
+  })
+
+  availableQuestions.splice(questionsIndex, 1)
+
+  acceptingAnswers = true 
+
+}
+
+choices.forEach(choice => {
+  choice.addEventListener("click", e => {
+    if (!acceptingAnswers) return
+
+    acceptingAnswers = false
+    const selectedChoice = e.target
+    const selectedAnswer = selectedChoice.dataset["number"]
+
+    let classToApply = selectedAnswer == currentQuestion.answer ? "correct" : "incorrect"
+
+    if (classToApply === "correct") {
+      incrementScore(scorePoints)
+    }
+
+    selectedChoice.parentElement.classList.add(classToApply)
+
+    setTimeout {() => {
+      selectedChoice.parentElement.classList.remove(classToApply)
+      getNewQuestion()
+    }, 1000}
+  })
+})

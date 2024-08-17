@@ -74,8 +74,16 @@ body {
     margin-left: 3%;
 }
 
+.fa-clock {
+    margin-right: 0.5rem;
+}
+
 #yardage-heading {
     margin-right: 3%;
+}
+
+.fa-football {
+    margin-left: 0.5rem;
 }
 
 #field-display {
@@ -158,8 +166,18 @@ button {
 button:hover {
     transition: ease;
     background-color: #0152aa;
+    cursor: pointer;
+    transform: scale(1.03);
 }
 
-.answer:hover {
-    cursor: pointer;
+.correct {
+    background-color: #0caa01;
+}
+
+.incorrect {
+    background-color: #e01212;
+}
+
+.hidden {
+    display: none;
 }
