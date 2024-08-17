@@ -18,7 +18,7 @@ const quizData = [
     b: "The Chicago Bears",
     c: "The Minnesota Vikings",
     d: "The Oakland Raiders",
-    correct: "c",
+    correct: "The Minnesota Vikings",
   },
   {
     question: "How many Super Bowl rings does Tom Brady have?",
@@ -109,7 +109,7 @@ const quizData = [
     correct: "d",
   },
   {
-    question: "Which of the following cities' teams is NOT named after a type of bird?",
+    question: "Which of the following teams is NOT named after a type of bird?",
     a: "Atlanta",
     b: "Philadelphia",
     c: "Cincinnati",
@@ -133,3 +133,26 @@ const quizData = [
     correct: "b",
   },
 ]
+
+const quiz = document.getElementById("quiz-area")
+const answerElement = document.querySelectorAll(".answer")
+const questionElement = document.getElementById("question")
+const aText = document.getElementById("answer-a")
+const bText = document.getElementById("answer-b")
+const cText = document.getElementById("answer-c")
+const dText = document.getElementById("answer-d")
+
+let currentQuiz = 0
+let score = 0
+
+
+loadQuiz()
+
+function loadQuiz() {
+  const currentQuizData = quizData[currentQuiz]
+  questionElement.innerText = currentQuizData.question
+  aText.innerText = currentQuizData.a
+  bText.innerText = currentQuizData.b
+  cText.innerText = currentQuizData.c
+  dText.innerText = currentQuizData.d
+}
