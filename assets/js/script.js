@@ -152,44 +152,94 @@ function resetAnswers() {
 
 answerEls.forEach(answerEl => {
   answerEl.addEventListener("click", () => {
-      const selectedAnswer = answerEl.getAttribute("id").replace("answer-", "");
+      const selectedAnswer = answerEl.getAttribute("id");
       if (selectedAnswer === quizData[currentQuiz].correct) {
           answerEl.classList.add("correct");
-          score += 10; // Add 10 yards for a correct answer
+          score += 10;
+          down = 1;
       } else {
           answerEl.classList.add("incorrect");
-      }
-
-      // Update score and down count
-      yardageHeadingEl.innerText = score;
-      if (down < 4) {
           down++;
-      } else {
-          down = 1;
       }
-      downEl.innerText = `${down}${getOrdinal(down)} Down`;
 
-      // question time delay
-      setTimeout(() => {
-          currentQuiz++;
-          if (currentQuiz < quizData.length) {
-              loadQuiz();
-          } else {
-              finishQuiz();
-          }
-      }, 1000);
-  });
+    //   // Update score and down count
+    //   yardageHeadingEl.innerText = score;
+    //   if (down < 4) {
+    //       down++;
+    //   } else {
+    //       down = 1;
+    //   }
+
+    //   let nth = "st"
+    //   if (down == 1) {
+    //     nth = "st"
+    //   }
+    //   if (down == 2) {
+    //     nth = "nd"
+    //   }
+    //   if (down == 3) {
+    //     nth = "rd"
+    //   }
+    //   if (down == 4) {
+    //     nth = "th"
+    //   }
+        yardageHeadingEl.innerText = score;  
+        const suffixes = ["th", "st", "nd", "rd"];
+        const nth = suffixes[down] || "th";
+      downEl.innerText = `${down}${nth}`;
+
+       // Check if game over
+       if (down > 4) {
+        gameOver();
+    } else {
+        // Wait a bit before moving to the next question
+        setTimeout(() => {
+            currentQuiz++;
+            if (currentQuiz < quizData.length) {
+                loadQuiz();
+            } else {
+                gameOver();
+            }
+        }, 1000);
+    }
+});
 });
 
-function getOrdinal(n) {
-  const s = ["th", "st", "nd", "rd"];
-  const v = n % 100;
-  return s[(v - 20) % 10] || s[v] || s[0];
+
+//       // question time delay
+//       setTimeout(() => {
+//           currentQuiz++;
+//           if (currentQuiz < quizData.length) {
+//               loadQuiz();
+//           } else {
+//               finishQuiz();
+//           }
+//       }, 1000);
+//   });
+// });
+
+// function finishQuiz() {
+//   const quizArea = document.getElementById("quiz-area");
+//   quizArea.innerHTML = `<h2>You have completed the quiz!</h2>
+//                         <h3>Your Total Yardage: ${score} yards</h3>
+//                         <button onclick="location.reload()">Restart Game</button>`;
+// }
+
+function gameOver() {
+    const modal = document.createElement("div");
+    modal.className = "modal";
+    const modalContent = document.createElement("div");
+    modalContent.className = "modal-content";
+    modalContent.innerHTML = `<h2>Game Over!</h2>
+                              <h3>Your Total Yardage: ${score} yards</h3>
+                              <button class="start" onclick="location.reload()">Play Again</button>`;
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
 }
 
-function finishQuiz() {
-  const quizArea = document.getElementById("quiz-area");
-  quizArea.innerHTML = `<h2>You have completed the quiz!</h2>
-                        <h3>Your Total Yardage: ${score} yards</h3>
-                        <button onclick="location.reload()">Restart Game</button>`;
-}
+// function finishQuiz() {
+//     const quizArea = document.getElementById("quiz-area");
+//     quizArea.innerHTML = `<h2>You have completed the quiz!</h2>
+//                           <h3>Your Total Yardage: ${score} yards</h3>
+//                           <button onclick="location.reload()">Restart Game</button>`;
+// }
