@@ -1,3 +1,27 @@
+function showStartModal() {
+    const modal = document.createElement("div");
+    modal.className = "modal";
+    const modalContent = document.createElement("div");
+    modalContent.className = "modal-content";
+    modalContent.innerHTML = `
+        <h1>Welcome to NFL Trivia Game!</h1>
+        <p>Answer the questions below to advance across the field. Starting from your own end zone, you have 4 downs (attempts) to move the ball 10 yards down the field. Every correct answer earns you 10 yards and 4 more downs (attempts) to get the next 10 yards.</p>
+        <p>To win the game, move the ball 100 yards into the opponents end zone by answering 10 questions correctly, but be aware, there's only enough time for 15 plays (questions)!</p>
+        <p>If you fail 4 questions in a row, the ball is turned over to the other team and it's game over!</p>
+        <button class="start" id="play-now">Play Now</button>`;
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
+
+    const playNowButton = document.getElementById("play-now");
+    playNowButton.addEventListener("click", () => {
+        // modal.style.display = "none";
+        document.body.removeChild(modal);
+        loadQuiz();
+    });
+}
+
+window.onload = showStartModal;
+
 const quizData = [
   {
       question: "Which of the following teams has never won the Super Bowl?",
@@ -126,6 +150,7 @@ const answerEls = document.querySelectorAll(".answer-text");
 const downEl = document.getElementById("down");
 const timeHeadingEl = document.querySelector("#time-heading span");
 const yardageHeadingEl = document.querySelector("#yardage-heading span");
+
 
 let currentQuiz = 0;
 let score = 0;
